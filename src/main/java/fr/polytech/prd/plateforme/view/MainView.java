@@ -1,5 +1,4 @@
-package fr.polytech.prd.plateforme;
-
+package fr.polytech.prd.plateforme.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
@@ -12,27 +11,23 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
-import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
-public class App {
+/*
+ * class MainView: Fenêtre principale de l'application
+ * 
+ */
+public class MainView {
+
 
     private final JFrame frame;
 
     private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
-    public static void main(final String[] args) {
-        new NativeDiscovery().discover();
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new App();
-            }
-        });
-    }
-
-    public App() {
-        frame = new JFrame("My First Media Player");
+	
+	public MainView(){
+        frame = new JFrame("Plateforme d'acquisition");
         frame.setBounds(100, 100, 600, 400);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
@@ -49,7 +44,6 @@ public class App {
 
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
         contentPane.add(mediaPlayerComponent, BorderLayout.CENTER);
-
         
 
         mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
@@ -93,18 +87,19 @@ public class App {
 
         Runtime runtime = Runtime.getRuntime();
         try {
-			runtime.exec("streamlink https://www.tf1.fr/tf1/direct best --player-external-http --player-external-http-port 52053");
+			runtime.exec("streamlink https://www.tf1.fr/tf1/direct best --player-external-http --player-external-http-port 52054");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         
         MediaPlayer mediaplayer = mediaPlayerComponent.getMediaPlayer();
-        mediaplayer.playMedia("http://127.0.0.1:52053/");
-    }
+        mediaplayer.playMedia("http://127.0.0.1:52054/");
 
-    private void closeWindow() {
+		
+	}
+	
+	private void closeWindow() {
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 }
-
