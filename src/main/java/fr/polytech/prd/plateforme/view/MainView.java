@@ -1,23 +1,26 @@
 package fr.polytech.prd.plateforme.view;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fr.polytech.prd.plateforme.controler.StreamControler;
+
 /*
  * class MainView: Fenêtre principale de l'application
  * 
  */
-public class MainView implements ActionListener{
+public class MainView{
 
 
     private final JFrame frame;
     
     private JButton buttonTest;
+    
+    private StreamControler sc;
 
 	public MainView(){
         frame = new JFrame("Plateforme d'acquisition");
@@ -32,8 +35,10 @@ public class MainView implements ActionListener{
         
         
         buttonTest = new JButton("Test lancement stream");
-        buttonTest.addActionListener(this);
-        
+        buttonTest.addActionListener((ActionEvent e) -> {
+        	sc = new StreamControler();
+        	sc.launchStream();
+        });
         
         contentPane.add(textTitle);
         contentPane.add(buttonTest);
@@ -42,10 +47,6 @@ public class MainView implements ActionListener{
         frame.setContentPane(contentPane);
         frame.setVisible(true);
 	
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		new StreamView();
 	}
 	
 }

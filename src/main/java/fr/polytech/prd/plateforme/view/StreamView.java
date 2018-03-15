@@ -3,14 +3,12 @@ package fr.polytech.prd.plateforme.view;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import fr.polytech.prd.plateforme.controler.AfficheurFlux;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
@@ -81,31 +79,15 @@ public class StreamView {
 		frame.setContentPane(contentPane);
 		frame.setVisible(true);
 
-
-		try {
-			Process p = Runtime.getRuntime().exec("streamlink https://www.france.tv/france-3/direct.html best --player-external-http --player-external-http-port 52053");
-			
-			AfficheurFlux fluxSortie = new AfficheurFlux(p.getInputStream());
-            AfficheurFlux fluxErreur = new AfficheurFlux(p.getErrorStream());
-
-            new Thread(fluxSortie).start();
-            new Thread(fluxErreur).start();
-
-            p.wait();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		MediaPlayer mediaplayer = mediaPlayerComponent.getMediaPlayer();
-		mediaplayer.playMedia("http://127.0.0.1:52053/");
-
 	}
 	
 	private void closeWindow() {
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+	}
+	
+	public void playMedia()
+	{
+		MediaPlayer mediaplayer = mediaPlayerComponent.getMediaPlayer();
+		mediaplayer.playMedia("http://127.0.0.1:52053/");
 	}
 }

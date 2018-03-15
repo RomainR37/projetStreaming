@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Observable;
 
-public class AfficheurFlux implements Runnable {
+public class AfficheurFlux extends Observable implements Runnable {
 
 	private final InputStream inputStream;
 
@@ -25,7 +26,8 @@ public class AfficheurFlux implements Runnable {
 				System.out.println(ligne);
 				if (ligne.contains("http://127.0.0.1:52053/"))
 				{
-					notify();
+				    setChanged();
+					notifyObservers();
 				}
 			}
 		} catch (IOException e) {
