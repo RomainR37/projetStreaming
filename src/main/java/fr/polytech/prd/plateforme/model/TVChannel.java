@@ -1,4 +1,4 @@
-package fr.polytech.prd.plateforme.controler;
+package fr.polytech.prd.plateforme.model;
 
 
 public class TVChannel {
