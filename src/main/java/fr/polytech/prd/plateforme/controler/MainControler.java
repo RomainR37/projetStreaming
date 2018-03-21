@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import fr.polytech.prd.plateforme.model.TVChannel;
-import fr.polytech.prd.plateforme.view.MainView;
 
 public class MainControler extends Thread{
 	
