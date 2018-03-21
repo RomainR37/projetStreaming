@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>fr.polytech.prd</groupId>
-	<artifactId>plateforme</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>streamPlateform</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>plateforme</name>
+	<name>Stream Plateform</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
