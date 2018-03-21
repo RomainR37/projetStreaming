@@ -36,7 +36,6 @@ public class MainView{
         
         buttonTest = new JButton("Test lancement stream");
         buttonTest.addActionListener((ActionEvent e) -> {
-        	sc = new StreamControler();
         	sc.launchStream();
         });
         

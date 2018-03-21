@@ -9,13 +9,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.polytech.prd.plateforme.controler.MainControler;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
 public class StreamView {
 
+	Logger log = LoggerFactory.getLogger("fr.polytech.prd.plateforme.controler.StreamControler");	
 
+	
 	private final JFrame frame;
 
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
@@ -31,9 +37,10 @@ public class StreamView {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.out.println(e);
+				log.debug("Closing window", e);
 				mediaPlayerComponent.release();
-				System.exit(0);
+				frame.dispose();
+				MainControler.nbStreamRunning--;
 			}
 		});
 
@@ -49,7 +56,7 @@ public class StreamView {
 			public void playing(MediaPlayer mediaPlayer) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						frame.setTitle(titleFrame+" Running");
+						frame.setTitle(titleFrame+": running...");
 					}
 				});
 			}
@@ -92,6 +99,7 @@ public class StreamView {
 	{
 		String addressToPlay = "http://127.0.0.1:"+port+"/";
 		MediaPlayer mediaplayer = mediaPlayerComponent.getMediaPlayer();
+		log.debug("call playMedia method");
 		mediaplayer.playMedia(addressToPlay);
 	}
 }
