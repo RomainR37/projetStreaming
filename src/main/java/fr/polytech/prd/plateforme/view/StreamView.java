@@ -19,11 +19,14 @@ public class StreamView {
 	private final JFrame frame;
 
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
+	
+	private final String titleFrame;
 
 
-	public StreamView(){
-		frame = new JFrame("Plateforme d'acquisition");
-		frame.setBounds(100, 100, 600, 400);
+	public StreamView(String channelName){
+		titleFrame = channelName;
+		frame = new JFrame(channelName+"... loading");
+		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -46,7 +49,7 @@ public class StreamView {
 			public void playing(MediaPlayer mediaPlayer) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						frame.setTitle("Test Stream");
+						frame.setTitle(titleFrame+" Running");
 					}
 				});
 			}
@@ -85,9 +88,10 @@ public class StreamView {
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	}
 	
-	public void playMedia()
+	public void playMedia(Integer port)
 	{
+		String addressToPlay = "http://127.0.0.1:"+port+"/";
 		MediaPlayer mediaplayer = mediaPlayerComponent.getMediaPlayer();
-		mediaplayer.playMedia("http://127.0.0.1:52053/");
+		mediaplayer.playMedia(addressToPlay);
 	}
 }

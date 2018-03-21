@@ -10,7 +10,7 @@ public class MainLaunch {
 		new NativeDiscovery().discover();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                MainControler mc = new MainControler();
+                MainControler mc = new MainControler(args[0]);
                 mc.start();
             }
         });

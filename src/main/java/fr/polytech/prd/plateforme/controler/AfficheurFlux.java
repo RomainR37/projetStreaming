@@ -9,9 +9,11 @@ import java.util.Observable;
 public class AfficheurFlux extends Observable implements Runnable {
 
 	private final InputStream inputStream;
+	private String addressToPlay = "http://127.0.0.1:";
 
-	public AfficheurFlux(InputStream inputStream) {
+	public AfficheurFlux(InputStream inputStream, int port){
 		this.inputStream = inputStream;
+		addressToPlay += port + "/";
 	}
 
 	private BufferedReader getBufferedReader(InputStream is) {
@@ -24,7 +26,7 @@ public class AfficheurFlux extends Observable implements Runnable {
 		try {
 			while ((ligne = br.readLine()) != null) {
 				System.out.println(ligne);
-				if (ligne.contains("http://127.0.0.1:52053/"))
+				if (ligne.contains(addressToPlay))
 				{
 				    setChanged();
 					notifyObservers();
