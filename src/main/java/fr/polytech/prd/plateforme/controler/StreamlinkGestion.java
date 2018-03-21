@@ -13,7 +13,7 @@ public class StreamlinkGestion extends Thread{
 	public void run()
 	{
 		try {
-			Process p = Runtime.getRuntime().exec("streamlink https://www.france.tv/france-3/direct.html best --player-external-http --player-external-http-port 52053");
+			Process p = Runtime.getRuntime().exec("streamlink https://www.arte.tv/fr/direct/ best --player-external-http --player-external-http-port 52053");
 			
 			AfficheurFlux fluxSortie = new AfficheurFlux(p.getInputStream());
             AfficheurFlux fluxErreur = new AfficheurFlux(p.getErrorStream());
