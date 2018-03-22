@@ -11,30 +11,78 @@ import org.slf4j.LoggerFactory;
 import fr.polytech.prd.plateforme.model.TVChannel;
 import fr.polytech.prd.plateforme.view.StreamView;
 
+/**
+ * <b>StreamControler is the class that handle with the stream to run</b>
+ * 
+ * <p>
+ * StreamControler starts a stream by calling a StreamView class and running the
+ * streamlink command
+ * </p>
+ * 
+ * @author Romain ROUSSEAU
+ * 
+ */
 public class StreamControler {
 
+	/**
+	 * Logger object to log informations to the user
+	 */
 	Logger log = LoggerFactory.getLogger("fr.polytech.prd.plateforme.controler.StreamControler");
 
+	/**
+	 * Observer that listens to the text input stream provide by streamlink.
+	 */
 	private PlayMediaObserver pmo = new PlayMediaObserver();
+
+	/**
+	 * Viewer of the stream.
+	 */
 	private StreamView streamview;
 
+	/**
+	 * TVChannel object to keep the attribute of the channel read in memory.
+	 */
 	TVChannel channel;
 
+	/**
+	 * Quality to give to stramlink. Set to best by default.
+	 */
 	private String quality = "best";
+
+	/**
+	 * Integer that represents the communication port in which the stream will
+	 * be read.
+	 */
 	private Integer port = ThreadLocalRandom.current().nextInt(1025, 9999);
 
+	/**
+	 * Constructor of the StreamControler.
+	 *
+	 * The parameter is the channel that will be read.
+	 * 
+	 * @param channel:
+	 *            channel that will be read
+	 */
 	public StreamControler(TVChannel channel) {
 		this.channel = channel;
 	}
 
+	/**
+	 * Method that launches the stream. Create a StreamView object et call the
+	 * run() method.
+	 */
 	public void launchStream() {
-		log.debug("Creation of the StreaView");
+		log.debug("Creation of the StreamView");
 		streamview = new StreamView(channel.getChannelName());
 
 		log.debug("Run Streamlink");
 		run();
 	}
 
+	/**
+	 * Run a thread that execute streamlink programm.
+	 * 
+	 */
 	public void run() {
 		String[] command = { "streamlink", channel.getChannelAdress(), quality, "--player-external-http",
 				"--player-external-http-port", port.toString() };
@@ -42,12 +90,10 @@ public class StreamControler {
 			Process p = Runtime.getRuntime().exec(command);
 
 			TextInputStreamControler fluxSortie = new TextInputStreamControler(p.getInputStream(), port);
-			TextInputStreamControler fluxErreur = new TextInputStreamControler(p.getErrorStream(), port);
 
 			fluxSortie.addObserver(pmo);
 
 			new Thread(fluxSortie).start();
-			new Thread(fluxErreur).start();
 
 		} catch (IOException e1) {
 			log.error("Error", e1);
@@ -58,15 +104,15 @@ public class StreamControler {
 	public class PlayMediaObserver implements Observer {
 
 		public void update(Observable o, Object arg) {
-			if (((TextInputStreamControler) o).getLine().contains("Stream ended") && MainControler.nbStreamRunning == 0) {
+			if (((TextInputStreamControler) o).getLine().contains("Stream ended")
+					&& MainControler.nbStreamRunning == 0) {
 				log.debug("All stream closed");
 				log.debug("Terminate application");
 				System.exit(0);
-			} else if (((TextInputStreamControler) o).getLine().contains("http://127.0.0.1:"+port)){
-				log.debug("Starting "+channel.getChannelName());
+			} else if (((TextInputStreamControler) o).getLine().contains("http://127.0.0.1:" + port)) {
+				log.debug("Starting " + channel.getChannelName());
 				streamview.playMedia(port);
 			}
 		}
-
 	}
 }

@@ -19,19 +19,17 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
 public class StreamView {
 
-	Logger log = LoggerFactory.getLogger("fr.polytech.prd.plateforme.controler.StreamControler");	
+	Logger log = LoggerFactory.getLogger("fr.polytech.prd.plateforme.controler.StreamControler");
 
-	
 	private final JFrame frame;
 
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
-	
+
 	private final String titleFrame;
 
-
-	public StreamView(String channelName){
+	public StreamView(String channelName) {
 		titleFrame = channelName;
-		frame = new JFrame(channelName+"... loading");
+		frame = new JFrame(channelName + "... loading");
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
@@ -40,7 +38,7 @@ public class StreamView {
 				log.debug("Closing window", e);
 				mediaPlayerComponent.release();
 				frame.dispose();
-				MainControler.nbStreamRunning--;
+				MainControler.decrementStreamNumber();
 			}
 		});
 
@@ -50,38 +48,22 @@ public class StreamView {
 		mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
 		contentPane.add(mediaPlayerComponent, BorderLayout.CENTER);
 
-
 		mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
 			@Override
 			public void playing(MediaPlayer mediaPlayer) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						frame.setTitle(titleFrame+": running...");
-					}
-				});
+				SwingUtilities.invokeLater(() -> frame.setTitle(titleFrame + ": running..."));
 			}
 
 			@Override
 			public void finished(MediaPlayer mediaPlayer) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						closeWindow();
-					}
-				});
+				SwingUtilities.invokeLater(() -> closeWindow());
 			}
 
 			@Override
 			public void error(MediaPlayer mediaPlayer) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						JOptionPane.showMessageDialog(
-								frame,
-								"Failed to play media",
-								"Error",
-								JOptionPane.ERROR_MESSAGE
-								);
-						closeWindow();
-					}
+				SwingUtilities.invokeLater(() -> {
+					JOptionPane.showMessageDialog(frame, "Failed to play media", "Error", JOptionPane.ERROR_MESSAGE);
+					closeWindow();
 				});
 			}
 		});
@@ -90,14 +72,13 @@ public class StreamView {
 		frame.setVisible(true);
 
 	}
-	
+
 	private void closeWindow() {
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	}
-	
-	public void playMedia(Integer port)
-	{
-		String addressToPlay = "http://127.0.0.1:"+port+"/";
+
+	public void playMedia(Integer port) {
+		String addressToPlay = "http://127.0.0.1:" + port + "/";
 		MediaPlayer mediaplayer = mediaPlayerComponent.getMediaPlayer();
 		log.debug("call playMedia method");
 		mediaplayer.playMedia(addressToPlay);

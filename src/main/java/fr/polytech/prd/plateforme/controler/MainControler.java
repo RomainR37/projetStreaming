@@ -26,14 +26,13 @@ public class MainControler extends Thread{
 		fichier = new File(nomfichier);
 	}
 	
-	
+	@Override
 	public void run(){
 	
 		String ligne;
 		String[] elementLigne;
 		
-		try {
-			Scanner sc = new Scanner(fichier);
+		try (Scanner sc = new Scanner(fichier)){
 			log.debug("read file",fichier);
 			while (sc.hasNextLine()){
 				ligne = sc.nextLine();
@@ -41,12 +40,22 @@ public class MainControler extends Thread{
 				TVChannel channel = new TVChannel(elementLigne[0], elementLigne[1]);
 				StreamControler streamcontroler = new StreamControler(channel);
 				streamcontroler.launchStream();
-				nbStreamRunning++;
-				log.info("Number of stream running: "+nbStreamRunning);
+				incrementStreamNumber();
+				log.info("Number of stream running: ", nbStreamRunning);
 			}
-			sc.close();
 		} catch (FileNotFoundException e) {
 			log.error("File not found");
 		}
 	}
+	
+	public static synchronized void incrementStreamNumber()
+	{
+		nbStreamRunning++;
+	}
+	
+	public static synchronized void decrementStreamNumber()
+	{
+		nbStreamRunning--;
+	}
+	
 }

@@ -1,33 +1,53 @@
 package fr.polytech.prd.plateforme.model;
 
-
 public class TVChannel {
 
-	private String ChannelName;
-	private String ChannelAdress;
-	
+	private String channelName;
+	private String channelAdress;
+
 	/**
 	 * @param channelName
 	 * @param channelAdress
 	 */
 	public TVChannel(String channelName, String channelAdress) {
-		ChannelName = channelName;
-		ChannelAdress = channelAdress;
+		this.channelName = channelName;
+		this.channelAdress = channelAdress;
 	}
-	
-	
+
+	/**
+	 * Get the channel name
+	 * 
+	 * @return the channel name
+	 */
 	public String getChannelName() {
-		return ChannelName;
+		return channelName;
 	}
+
+	/**
+	 * Set the channel name
+	 * 
+	 * @param channelName
+	 */
 	public void setChannelName(String channelName) {
-		ChannelName = channelName;
+		this.channelName = channelName;
 	}
+
+	/**
+	 * Get the channel address
+	 * 
+	 * @return the channel address
+	 */
 	public String getChannelAdress() {
-		return ChannelAdress;
+		return channelAdress;
 	}
+
+	/**
+	 * Set the channel address
+	 * 
+	 * @param channelAdress
+	 */
 	public void setChannelAdress(String channelAdress) {
-		ChannelAdress = channelAdress;
+		this.channelAdress = channelAdress;
 	}
-	
-	
+
 }
