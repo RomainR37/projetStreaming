@@ -6,6 +6,16 @@ public class TVChannel {
 	private String ChannelName;
 	private String ChannelAdress;
 	
+	/**
+	 * @param channelName
+	 * @param channelAdress
+	 */
+	public TVChannel(String channelName, String channelAdress) {
+		ChannelName = channelName;
+		ChannelAdress = channelAdress;
+	}
+	
+	
 	public String getChannelName() {
 		return ChannelName;
 	}

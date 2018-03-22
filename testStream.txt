@@ -1,0 +1,2 @@
+TF1	https://www.tf1.fr/tf1/direct
+CNews	http://playtv.fr/television/cnews/
