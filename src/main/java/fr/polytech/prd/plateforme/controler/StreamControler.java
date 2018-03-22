@@ -63,7 +63,7 @@ public class StreamControler {
 				log.debug("Terminate application");
 				System.exit(0);
 			} else if (((TextInputStreamControler) o).getLine().contains("http://127.0.0.1:"+port)){
-				log.debug("Starting media playing");
+				log.debug("Starting "+channel.getChannelName());
 				streamview.playMedia(port);
 			}
 		}
