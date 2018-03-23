@@ -25,12 +25,12 @@ import fr.polytech.prd.plateforme.view.StreamView;
 public class StreamControler {
 
 	/**
-	 * Logger object to log informations to the user
+	 * Logger object that displays informations to the user
 	 */
 	Logger log = LoggerFactory.getLogger("fr.polytech.prd.plateforme.controler.StreamControler");
 
 	/**
-	 * Observer that listens to the text input stream provide by streamlink.
+	 * PlayMediaObserver that will observe the TextInpuStreamControler thread.
 	 */
 	private PlayMediaObserver pmo = new PlayMediaObserver();
 
@@ -45,7 +45,7 @@ public class StreamControler {
 	TVChannel channel;
 
 	/**
-	 * Quality to give to stramlink. Set to best by default.
+	 * Quality to give to streamlink. Set to best by default.
 	 */
 	private String quality = "best";
 
@@ -68,7 +68,7 @@ public class StreamControler {
 	}
 
 	/**
-	 * Method that launches the stream. Create a StreamView object et call the
+	 * Method that launches the stream. Create a StreamView object and call the
 	 * run() method.
 	 */
 	public void launchStream() {
@@ -80,11 +80,11 @@ public class StreamControler {
 	}
 
 	/**
-	 * Run a thread that execute streamlink programm.
+	 * Run a thread that execute streamlink program and a TextInputStreamControler thread that read the log input.
 	 * 
 	 */
 	public void run() {
-		String[] command = { "streamlink", channel.getChannelAdress(), quality, "--player-external-http",
+		String[] command = { "streamlink", channel.getChannelAddress(), quality, "--player-external-http",
 				"--player-external-http-port", port.toString() };
 		try {
 			Process p = Runtime.getRuntime().exec(command);
@@ -101,11 +101,23 @@ public class StreamControler {
 		}
 	}
 
+	/**
+	 * Observer class that calls its update method in two cases:
+	 * 
+	 * <ul>
+	 *  <li>When the log displays "Stream ended" and there is no stream left to run, the program will terminate.</li>
+	 * 	<li>When the log displays the address to read, which means that the stream is ready to be read.</li>
+	 * </ul>
+	 * 
+	 * 
+	 * @author Romain Rousseau
+	 *
+	 */
 	public class PlayMediaObserver implements Observer {
 
 		public void update(Observable o, Object arg) {
 			if (((TextInputStreamControler) o).getLine().contains("Stream ended")
-					&& MainControler.nbStreamRunning == 0) {
+					&& MainControler.getNbStreamRunning() == 0) {
 				log.debug("All stream closed");
 				log.debug("Terminate application");
 				System.exit(0);

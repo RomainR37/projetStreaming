@@ -1,17 +1,42 @@
 package fr.polytech.prd.plateforme.model;
 
+/**
+ * <b>TVChannel class represents an object TV Channel</b>
+ * 
+ * It has two arguments:
+ * <ul>
+ * <li>the channel Name</li>
+ * <li>the channel address to read the stream from. Example, for TF1, the
+ * address is https://www.tf1.fr/tf1/direct</li>
+ * </ul>
+ * 
+ * @author Romain Rousseau
+ *
+ */
 public class TVChannel {
 
+	/**
+	 * Name of the TV channel
+	 */
 	private String channelName;
-	private String channelAdress;
 
 	/**
-	 * @param channelName
-	 * @param channelAdress
+	 * Address of the TV channel to read the stream from. For example, the
+	 * address of the TF1 channel is https://www.tf1.fr/tf1/direct
 	 */
-	public TVChannel(String channelName, String channelAdress) {
+	private String channelAddress;
+
+	/**
+	 * Constructor of the class TVChannel
+	 * 
+	 * @param channelName:
+	 *            the name of the channel
+	 * @param channelAddress:
+	 *            the address to read the channel from
+	 */
+	public TVChannel(String channelName, String channelAddress) {
 		this.channelName = channelName;
-		this.channelAdress = channelAdress;
+		this.channelAddress = channelAddress;
 	}
 
 	/**
@@ -26,7 +51,8 @@ public class TVChannel {
 	/**
 	 * Set the channel name
 	 * 
-	 * @param channelName
+	 * @param channelName:
+	 *            Name of the TV channel
 	 */
 	public void setChannelName(String channelName) {
 		this.channelName = channelName;
@@ -37,17 +63,18 @@ public class TVChannel {
 	 * 
 	 * @return the channel address
 	 */
-	public String getChannelAdress() {
-		return channelAdress;
+	public String getChannelAddress() {
+		return channelAddress;
 	}
 
 	/**
 	 * Set the channel address
 	 * 
-	 * @param channelAdress
+	 * @param channelAddress:
+	 *            address to read the stream from.
 	 */
-	public void setChannelAdress(String channelAdress) {
-		this.channelAdress = channelAdress;
+	public void setChannelAdress(String channelAddress) {
+		this.channelAddress = channelAddress;
 	}
 
 }

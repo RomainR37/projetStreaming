@@ -17,16 +17,47 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
+/**
+ * <b>The StreamView class is made to display the stream to the screen.</b>
+ * 
+ * <p>
+ * StreamView creates a JFrame and add a EmbeddedMediaPlayerComponent to it, so
+ * that it can play the stream.
+ * </p>
+ * 
+ * @author Romain Rousseau
+ *
+ */
 public class StreamView {
 
-	Logger log = LoggerFactory.getLogger("fr.polytech.prd.plateforme.controler.StreamControler");
+	/**
+	 * Logger object that displays informations to the user
+	 */
+	Logger log = LoggerFactory.getLogger("fr.polytech.prd.plateforme.view.StreamView");
 
+	/**
+	 * JFrame object that will contain the media player.
+	 */
 	private final JFrame frame;
 
+	/**
+	 * EmbeddedMediaPlayerComponent provide by vlc-j library to the play the stream.
+	 */
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
+	/**
+	 * String for the title name of the JFrame.
+	 */
 	private final String titleFrame;
 
+	/**
+	 * Constructor of the StreamView object.
+	 * 
+	 * This constructor sets the title of the frame with the channel name and his status (loading or running).
+	 * It contains the windowListener and the mediaListener.
+	 * 
+	 * @param channelName: name of the TV Channel
+	 */
 	public StreamView(String channelName) {
 		titleFrame = channelName;
 		frame = new JFrame(channelName + "... loading");
@@ -73,10 +104,21 @@ public class StreamView {
 
 	}
 
+	/**
+	 * Method that calls the event windowClosing in the constructor.
+	 */
 	private void closeWindow() {
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	}
 
+	/**
+	 * This method plays the video with its media player.
+	 * 
+	 * It creates an object MediaPlayer and plays the stream at the address "127.0.0.1:(port)".
+	 * The address "127.0.0.1" is the default address used by streamlink.
+	 * 
+	 * @param port: the communication port that has to be listened.
+	 */
 	public void playMedia(Integer port) {
 		String addressToPlay = "http://127.0.0.1:" + port + "/";
 		MediaPlayer mediaplayer = mediaPlayerComponent.getMediaPlayer();
