@@ -124,6 +124,9 @@ public class StreamControler {
 			} else if (((TextInputStreamControler) o).getLine().contains("http://127.0.0.1:" + port)) {
 				log.debug("Starting " + channel.getChannelName());
 				streamview.playMedia(port);
+			} else if (((TextInputStreamControler) o).getLine().contains("Failed to reload playlist")){
+				log.debug("Closing Window due to error");
+				streamview.closeWindow();
 			}
 		}
 	}

@@ -31,7 +31,7 @@ public class MainControler extends Thread {
 	Logger log = LoggerFactory.getLogger("fr.polytech.prd.plateforme.controler.MainControler");
 
 	/**
-	 * File object represting the text file given by the user.
+	 * File object representing the text file given by the user.
 	 */
 	File file;
 
@@ -57,16 +57,6 @@ public class MainControler extends Thread {
 	 */
 	public static int getNbStreamRunning() {
 		return nbStreamRunning;
-	}
-
-	/**
-	 * Setter for the number of streams running
-	 * 
-	 * @param nbStreamRunning:
-	 *            the number of streams running.
-	 */
-	public static void setNbStreamRunning(int nbStreamRunning) {
-		MainControler.nbStreamRunning = nbStreamRunning;
 	}
 
 	/**

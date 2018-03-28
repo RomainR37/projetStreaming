@@ -107,7 +107,7 @@ public class StreamView {
 	/**
 	 * Method that calls the event windowClosing in the constructor.
 	 */
-	private void closeWindow() {
+	public void closeWindow() {
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	}
 

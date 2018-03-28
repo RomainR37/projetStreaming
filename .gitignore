@@ -1,1 +1,5 @@
 target/
+testStream.txt
+
+!target/streamPlatform-1.0.0-jar-with-dependencies.jar
+!target/testStream.txt

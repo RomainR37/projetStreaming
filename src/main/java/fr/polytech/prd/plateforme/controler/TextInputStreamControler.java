@@ -98,17 +98,20 @@ public class TextInputStreamControler extends Observable implements Runnable {
 		try {
 			while ((line = br.readLine()) != null) {
 				log.info(line);
-				if (line.contains(addressToPlay)) {
-					setChanged();
-					notifyObservers();
-				}
-				if (line.contains("Stream ended")) {
-					setChanged();
-					notifyObservers();
-				}
+				checkLine(line, addressToPlay);
+				checkLine(line, "Stream ended");
+				checkLine(line, "Failed to reload playlist");
 			}
 		} catch (IOException e) {
 			log.error("Exception in run method: ", e);
+		}
+	}
+	
+	public void checkLine(String lineInput, String lineCheck)
+	{
+		if (lineInput.contains(lineCheck)) {
+			setChanged();
+			notifyObservers();
 		}
 	}
 }
