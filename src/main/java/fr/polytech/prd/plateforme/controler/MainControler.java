@@ -71,19 +71,21 @@ public class MainControler extends Thread {
 	@Override
 	public void run() {
 
-		String ligne;
-		String[] elementLigne;
+		String line;
+		String[] elementLine;
 
 		try (Scanner sc = new Scanner(file)) {
 			log.debug("read file", file);
 			while (sc.hasNextLine()) {
-				ligne = sc.nextLine();
-				elementLigne = ligne.split("\t");
-				TVChannel channel = new TVChannel(elementLigne[0], elementLigne[1]);
-				StreamControler streamcontroler = new StreamControler(channel);
-				streamcontroler.launchStream();
-				incrementStreamNumber();
-				log.info("Number of stream running: ", nbStreamRunning);
+				line = sc.nextLine();
+				if (!line.startsWith("#")) {
+					elementLine = line.split("\t");
+					TVChannel channel = new TVChannel(elementLine[0], elementLine[1]);
+					StreamControler streamcontroler = new StreamControler(channel);
+					streamcontroler.launchStream();
+					incrementStreamNumber();
+					log.info("Number of stream running: ", nbStreamRunning);
+				}
 			}
 		} catch (FileNotFoundException e) {
 			log.error("File not found");

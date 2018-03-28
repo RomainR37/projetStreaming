@@ -106,9 +106,8 @@ public class TextInputStreamControler extends Observable implements Runnable {
 			log.error("Exception in run method: ", e);
 		}
 	}
-	
-	public void checkLine(String lineInput, String lineCheck)
-	{
+
+	public void checkLine(String lineInput, String lineCheck) {
 		if (lineInput.contains(lineCheck)) {
 			setChanged();
 			notifyObservers();

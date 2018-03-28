@@ -1,2 +1,16 @@
-TF1	https://www.tf1.fr/tf1/direct
-CNews	http://playtv.fr/television/cnews/
+#TF1	https://www.tf1.fr/tf1/direct
+#France 2	https://www.france.tv/france-2/direct.html
+#France 3	https://www.france.tv/france-3/direct.html
+#France 5	https://www.france.tv/france-5/direct.html
+#Arte 	https://www.arte.tv/fr/direct/
+#TMC 	https://www.tf1.fr/tf1/direct
+#TFX 	https://www.tf1.fr/tf1/direct
+#LCP 	http://playtv.fr/television/lcp-ps/
+#France 4	https://www.france.tv/france-o/direct.html
+#BFMTV 	http://www.bfmtv.com/mediaplayer/live-video/
+#CNews 	http://playtv.fr/television/cnews/
+#Gulli 	http://replay.gulli.fr/Direct
+#France O	https://www.france.tv/france-o/direct.html
+#TF1-Séries-Films 	https://www.tf1.fr/tf1-series-films/direct
+#L'Equipe 	http://playtv.fr/television/lequipe/
+#LCI 	https://www.tf1.fr/lci/direct

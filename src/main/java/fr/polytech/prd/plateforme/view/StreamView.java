@@ -41,7 +41,8 @@ public class StreamView {
 	private final JFrame frame;
 
 	/**
-	 * EmbeddedMediaPlayerComponent provide by vlc-j library to the play the stream.
+	 * EmbeddedMediaPlayerComponent provide by vlc-j library to the play the
+	 * stream.
 	 */
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
@@ -53,10 +54,12 @@ public class StreamView {
 	/**
 	 * Constructor of the StreamView object.
 	 * 
-	 * This constructor sets the title of the frame with the channel name and his status (loading or running).
-	 * It contains the windowListener and the mediaListener.
+	 * This constructor sets the title of the frame with the channel name and
+	 * his status (loading or running). It contains the windowListener and the
+	 * mediaListener.
 	 * 
-	 * @param channelName: name of the TV Channel
+	 * @param channelName:
+	 *            name of the TV Channel
 	 */
 	public StreamView(String channelName) {
 		titleFrame = channelName;
@@ -114,15 +117,17 @@ public class StreamView {
 	/**
 	 * This method plays the video with its media player.
 	 * 
-	 * It creates an object MediaPlayer and plays the stream at the address "127.0.0.1:(port)".
-	 * The address "127.0.0.1" is the default address used by streamlink.
+	 * It creates an object MediaPlayer and plays the stream at the address
+	 * "127.0.0.1:(port)". The address "127.0.0.1" is the default address used
+	 * by streamlink.
 	 * 
-	 * @param port: the communication port that has to be listened.
+	 * @param port:
+	 *            the communication port that has to be listened.
 	 */
 	public void playMedia(Integer port) {
 		String addressToPlay = "http://127.0.0.1:" + port + "/";
 		MediaPlayer mediaplayer = mediaPlayerComponent.getMediaPlayer();
-		log.debug("call playMedia method");
+		log.debug("call playMedia method ");
 		mediaplayer.playMedia(addressToPlay);
 	}
 }

@@ -80,7 +80,8 @@ public class StreamControler {
 	}
 
 	/**
-	 * Run a thread that execute streamlink program and a TextInputStreamControler thread that read the log input.
+	 * Run a thread that execute streamlink program and a
+	 * TextInputStreamControler thread that read the log input.
 	 * 
 	 */
 	public void run() {
@@ -105,8 +106,10 @@ public class StreamControler {
 	 * Observer class that calls its update method in two cases:
 	 * 
 	 * <ul>
-	 *  <li>When the log displays "Stream ended" and there is no stream left to run, the program will terminate.</li>
-	 * 	<li>When the log displays the address to read, which means that the stream is ready to be read.</li>
+	 * <li>When the log displays "Stream ended" and there is no stream left to
+	 * run, the program will terminate.</li>
+	 * <li>When the log displays the address to read, which means that the
+	 * stream is ready to be read.</li>
 	 * </ul>
 	 * 
 	 * 
@@ -124,7 +127,7 @@ public class StreamControler {
 			} else if (((TextInputStreamControler) o).getLine().contains("http://127.0.0.1:" + port)) {
 				log.debug("Starting " + channel.getChannelName());
 				streamview.playMedia(port);
-			} else if (((TextInputStreamControler) o).getLine().contains("Failed to reload playlist")){
+			} else if (((TextInputStreamControler) o).getLine().contains("Failed to reload playlist")) {
 				log.debug("Closing Window due to error");
 				streamview.closeWindow();
 			}
